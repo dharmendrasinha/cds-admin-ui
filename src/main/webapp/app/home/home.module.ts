@@ -4,9 +4,24 @@ import { RouterModule } from '@angular/router';
 import { CdsadminuiSharedModule } from 'app/shared/shared.module';
 import { HOME_ROUTE } from './home.route';
 import { HomeComponent } from './home.component';
+import { HomenotificationsComponent } from './homenotifications.components';
+import { MergetransfersComponent } from './mergetransfers.component';
+import { HomemaintenanceComponent } from './homemaintenance.component';
+import { HomereportsComponent } from './homereports.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  imports: [CdsadminuiSharedModule, RouterModule.forChild([HOME_ROUTE])],
-  declarations: [HomeComponent]
+  imports: [
+    CdsadminuiSharedModule,
+    RouterModule.forChild([HOME_ROUTE]),
+    MatFormFieldModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatTableModule
+  ],
+  declarations: [HomeComponent, HomenotificationsComponent, MergetransfersComponent, HomemaintenanceComponent, HomereportsComponent]
 })
 export class CdsadminuiHomeModule {}
