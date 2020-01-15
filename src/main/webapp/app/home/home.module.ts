@@ -24,4 +24,4 @@ import { MatTableModule } from '@angular/material/table';
   ],
   declarations: [HomeComponent, HomenotificationsComponent, MergetransfersComponent, HomemaintenanceComponent, HomereportsComponent]
 })
-export class CdsadminuiHomeModule {}
+export class HomeModule {}

@@ -5,7 +5,7 @@ import './vendor';
 import { CdsadminuiSharedModule } from 'app/shared/shared.module';
 import { CdsadminuiCoreModule } from 'app/core/core.module';
 import { CdsadminuiAppRoutingModule } from './app-routing.module';
-import { CdsadminuiHomeModule } from './home/home.module';
+import { HomeModule } from './home/home.module';
 import { CdsadminuiEntityModule } from './entities/entity.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     BrowserModule,
     CdsadminuiSharedModule,
     CdsadminuiCoreModule,
-    CdsadminuiHomeModule,
+    HomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     CdsadminuiEntityModule,
     CdsadminuiAppRoutingModule,

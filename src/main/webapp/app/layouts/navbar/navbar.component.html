@@ -1,201 +1,177 @@
 <nav class="navbar navbar-light navbar-expand-md bg-light custom">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
-        <span class="navbar-title">Credit and Deposit Administration</span>
+        <span class="navbar-title ml-4">Credit and Deposit Administration</span>
     </a>
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <fa-icon icon="bars"></fa-icon>
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
-        <ul class="navbar-nav ml-sm-auto mr-auto">
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <ul class="navbar-nav ml-sm-auto mr-0">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item mx-4" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                     <span>
-                        <span>Home</span>
+                        <span>HOME</span>
                     </span>
                 </a>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="merger-menu">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer mx-4" display="dynamic" routerLinkActive="active">
+                <a class="nav-link" routerLink="mergertransfer" (click)="collapseNavbar()">
                     <span>
-                        <span>Merger / Transfer</span>
+                        <span>MERGER/TRANSFER</span>
                     </span>
                 </a>
-                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="merger-menu">
-                    <div class="py-3 cds-menu">
-                        <li class="cds-menu-item">
-                            <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                Merger - Add
-                            </a>
-                        </li>
-                        <li class="cds-menu-item">
-                            <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                Merger - Enquire/Undo
-                            </a>
-                        </li>
-                        <li class="cds-menu-item">
-                            <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                Transfer - Add
-                            </a>
-                        </li>
-                        <li class="cds-menu-item">
-                            <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                Transfer - Enquire/Undo
-                            </a>
-                        </li>
-                    </div>
-                </ul>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer mx-4" display="dynamic" routerLinkActive="active">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="maintenance-menu">
                     <span>
-                        <span>Maintenance</span>
+                        <span>MAINTENANCE</span>
                     </span>
                 </a>
 
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
                     <div class="py-3 cds-menu">
                         <li class="cds-menu-item">
-                            <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Advance - Purpose Type</span>
+                            <a class="dropdown-item" routerLink="maintenance/advpurposetype" routerLinkActive="active" (click)="collapseNavbar()">
+                                <span><fa-icon icon="file" class="pr-1"></fa-icon>Advance - Purpose Type</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Advance - Prepayment Fee</span>
+                                <span><fa-icon icon="dollar-sign" class="pr-1"></fa-icon>Advance - Prepayment Fee</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Advance - Exception Type</span>
+                                <span><fa-icon icon="file" class="pr-1"></fa-icon>Advance - Exception Type</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Advance - Exception Explanation</span>
+                                <span><fa-icon icon="exclamation-circle" class="pr-1"></fa-icon>Advance - Exception Explanation</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Term - Exception Type</span>
+                                <span><fa-icon icon="exclamation-circle" class="pr-1"></fa-icon>Term - Exception Type</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Term - Fund Source</span>
+                                <span><fa-icon icon="money-bill" class="pr-1"></fa-icon>Term - Fund Source</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Spread History</span>
+                                <span><fa-icon icon="history" class="pr-1"></fa-icon>Spread History</span>
+                            </a>
+                        </li>
+                        <li class="cds-menu-item">
+                            <a class="dropdown-item" routerLink="maintenance/customerfinancial" routerLinkActive="active" (click)="collapseNavbar()">
+                                <span><fa-icon icon="chart-bar" class="pr-2"></fa-icon>Customer Financial</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Customer Financial</span>
+                                <span><fa-icon icon="link" class="pr-2"></fa-icon>Link Instrument Ratio</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Link Instrument Ratio</span>
+                                <span><fa-icon icon="code" class="pr-2"></fa-icon>Agency Code</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Agency Code</span>
+                                <span><fa-icon icon="money-bill" class="pr-2"></fa-icon>FHLB Total Capital</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>FHLB Total Capital</span>
+                                <span><fa-icon icon="exclamation-circle" class="pr-1"></fa-icon>Exception Override</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Exception Override</span>
+                                <span><fa-icon icon="th-list" class="pr-2"></fa-icon>Manager List</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Manager List</span>
+                                <span><fa-icon icon="code" class="pr-2"></fa-icon>Hold Codes</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Hold Codes</span>
+                                <span><fa-icon icon="user-clock" class="pr-2"></fa-icon>Customer Holds</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Customer Holds</span>
+                                <span><fa-icon icon="file" class="pr-2"></fa-icon>CDS OPICS Instruments</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>CDS OPICS Instruments</span>
+                                <span><fa-icon icon="calendar-check" class="pr-2"></fa-icon>Forward Starting Advances Term Limit</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Forward Starting Advances Term Limit</span>
+                                <span><fa-icon icon="user" class="pr-2"></fa-icon>Cust Agreements</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Cust Agreements</span>
-                            </a>
-                        </li>
-                        <li class="cds-menu-item">
-                            <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Link Instruments Agreements</span>
+                                <span><fa-icon icon="link" class="pr-1"></fa-icon>Link Instruments Agreements</span>
                             </a>
                         </li>
                     </div>
                 </ul>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer mx-4" display="dynamic" routerLinkActive="active">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="auditlog-menu">
                     <span>
-                        <span>Audit Log</span>
+                        <span>AUDIT LOG</span>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
                     <div class="py-3 cds-menu">
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Audit Log</span>
+                                <span><fa-icon icon="file-alt" class="pr-2"></fa-icon>Audit Log</span>
                             </a>
                         </li>
                     </div>
                 </ul>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer mx-4" display="dynamic" routerLinkActive="active">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="reports-menu">
                     <span>
-                        <span>Reports</span>
+                        <span>REPORTS</span>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
                     <div class="py-3 cds-menu">
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Daily Portfolio</span>
+                                <span><fa-icon icon="file-alt" class="pr-2"></fa-icon>Daily Portfolio</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Overnight Activity</span>
+                                <span><fa-icon icon="file-alt" class="pr-2"></fa-icon>Overnight Activity</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Tradable Amount Comparison</span>
+                                <span><fa-icon icon="file-alt" class="pr-2"></fa-icon>Tradable Amount Comparison</span>
                             </a>
                         </li>
                         <li class="cds-menu-item">
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                                <span>Expiring Restrictions</span>
+                                <span><fa-icon icon="file-alt" class="pr-2"></fa-icon>Expiring Restrictions</span>
                             </a>
                         </li>
                     </div>
@@ -241,10 +217,18 @@
 <!--                    &lt;!&ndash; jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here &ndash;&gt;-->
 <!--                </ul>-->
 <!--            </li>-->
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer mx-4" display="dynamic" routerLinkActive="active">
+                <a class="nav-link" routerLink="help" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="question-circle" size="lg"></fa-icon>
+                        <span>Help</span>
+                    </span>
+                </a>
+            </li>
             <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                   <span *ngIf="!getImageUrl()">
-                    <fa-icon icon="user"></fa-icon>
+                    <fa-icon icon="user-circle" size="lg"></fa-icon>
                     <span>
                       Account
                     </span>
@@ -254,18 +238,20 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
-                    <li *ngSwitchCase="true">
-                        <a class="dropdown-item" (click)="logout()" id="logout">
-                            <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
-                            <span>Sign out</span>
-                        </a>
-                    </li>
-                    <li *ngSwitchCase="false">
-                        <a class="dropdown-item" (click)="login()" id="login">
-                            <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
-                            <span>Sign in</span>
-                        </a>
-                    </li>
+                    <div class="py-3 cds-menu">
+                        <li *ngSwitchCase="true" class="cds-menu-item">
+                            <a class="dropdown-item" (click)="logout()" id="logout">
+                                <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                                <span>Sign out</span>
+                            </a>
+                        </li>
+                        <li *ngSwitchCase="false"  class="cds-menu-item">
+                            <a class="dropdown-item" (click)="login()" id="login">
+                                <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
+                                <span>Sign in</span>
+                            </a>
+                        </li>
+                    </div>
                 </ul>
             </li>
         </ul>

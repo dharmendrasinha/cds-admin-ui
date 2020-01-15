@@ -15,24 +15,22 @@ Navbar
 }
 
 .navbar {
+  background-color: #ffffff !important;
   padding: 0 1rem;
   -webkit-box-shadow: 0 8px 7px -3px #c6c6c6;
   box-shadow: 0 8px 7px -3px #c6c6c6;
 
-  ul.navbar-nav {
-    .nav-item {
-      margin-left: 0.5em;
-    }
-  }
-
   a.nav-link {
-    font-weight: 400;
+    font-weight: 500;
+    padding: 0.5rem 0 0 0;
   }
 
   .navbar-title {
     font-size: 1.125rem;
-    font-weight: normal;
-    color: #818181;
+    font-weight: 500;
+    color: #000000;
+    position: relative;
+    top: 13px;
   }
 }
 
@@ -41,17 +39,18 @@ Navbar
 }
 
 .logo-img {
-  height: 40px;
-  width: 138px;
+  height: 75px;
+  width: 258px;
   display: inline-block;
   vertical-align: middle;
   background: url('../../../content/images/logo.png') no-repeat center center;
   background-size: contain;
+  margin: 0.5rem 0;
 }
 .custom {
   .nav-item {
     .dropdown-menu {
-      top: 44px !important;
+      top: 90px !important;
       transform: none !important;
       width: 100% !important;
     }
@@ -70,14 +69,13 @@ Navbar
       max-width: calc(33.333%);
       .dropdown-item {
         background-color: #ffffff;
-        color: #a6a7a1 !important;
+        color: #000000 !important;
         font-weight: normal;
         &.active {
-          font-weight: 500;
+          color: #2ea3f2 !important;
         }
         &:hover {
-          color: #000000 !important;
-          font-weight: normal;
+          color: #2ea3f2 !important;
         }
       }
     }
