@@ -4,12 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DeleteadvpurposetypedialogComponent } from './deleteadvpurposetypedialog.component';
-
-const ELEMENT_DATA: any[] = [
-  { id: 1, purposeTypeCode: 'L', purposeTypeDescription: 'Liquidity' },
-  { id: 2, purposeTypeCode: 'C', purposeTypeDescription: 'CMA' },
-  { id: 3, purposeTypeCode: 'O', purposeTypeDescription: 'Other' }
-];
+import { AdvpurposetypeService } from './advpurposetype.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-advpurposetype',
@@ -22,11 +18,13 @@ export class AdvpurposetypeComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   fileNameDialogRef: MatDialogRef<DeleteadvpurposetypedialogComponent>;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public advpurposetypeService: AdvpurposetypeService, public router: Router) {}
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.advpurposetypeService.getAllPurposeTypes().subscribe((res: any) => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -34,5 +32,10 @@ export class AdvpurposetypeComponent implements OnInit {
 
   openDialog() {
     this.fileNameDialogRef = this.dialog.open(DeleteadvpurposetypedialogComponent);
+  }
+
+  editPurpoeType(obj: any) {
+    sessionStorage.setItem('editPurposeType', JSON.stringify(obj));
+    this.router.navigate(['/maintenance/advpurposetype/edit', obj.id]);
   }
 }

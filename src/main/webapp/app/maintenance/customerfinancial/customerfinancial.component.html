@@ -22,6 +22,14 @@
             </div>
             <div class="clearfix"></div>
         </div>
+        <div class="bg-white">
+            <div class="col-sm-4">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Search" (input)="applyFilter($event.target.value)">
+                    <mat-icon matSuffix class="text-secondary">search</mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -38,9 +46,9 @@
                 <td mat-cell *matCellDef="let element"> {{element.customerNumber}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="totalAsset">
+            <ng-container matColumnDef="toatlAsset">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Asset </th>
-                <td mat-cell *matCellDef="let element"> {{element.totalAsset}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.toatlAsset}} </td>
             </ng-container>
 
             <ng-container matColumnDef="cmpFlag">
@@ -109,13 +117,13 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
                 <td mat-cell *matCellDef="let element">
-                    <a [routerLink]="['edit/', element.id]" class="text-primary"><fa-icon icon="edit" class="pr-2" size="lg"></fa-icon></a>
+                    <a (click)="editCustomer(element)" class="text-primary"><fa-icon icon="edit" class="pr-2" size="lg"></fa-icon></a>
                     <a href="" class="text-primary"><fa-icon icon="undo" class="pr-2" size="lg"></fa-icon></a>
                 </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns;" [ngClass]="{'gray': even}" [routerLink]="['detail/', row.projectNo]" class="cursor-pointer"></tr>
+            <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns;"></tr>
         </table>
         <mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
     </div>

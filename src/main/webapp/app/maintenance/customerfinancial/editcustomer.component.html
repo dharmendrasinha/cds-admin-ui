@@ -16,15 +16,13 @@
             <div class="row">
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Toatl Asset" formControlName="totalAsset" />
+                        <input matInput placeholder="Total Asset" formControlName="toatlAsset" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
-                    <label>CMP Flag </label>
-                    <mat-radio-group aria-label="Select an option" formControlName="cmpFlag">
-                        <mat-radio-button color="primary" class="mr-3" value="Yes">Yes</mat-radio-button>
-                        <mat-radio-button color="primary" value="No">No</mat-radio-button>
-                    </mat-radio-group>
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="CMP Flag" formControlName="cmpFlag" />
+                    </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="example-full-width">
@@ -100,8 +98,8 @@
 
         <div class="row my-4">
             <div class="col-sm-12">
-                <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()">ADD NEW CUSTOMER</button>
-                <button mat-button class="text-primary" routerLink="../">CLEAR</button>
+                <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()">UPDATE</button>
+                <button mat-button class="text-primary" routerLink="/maintenance/customerfinancial">CANCEL</button>
             </div>
         </div>
 

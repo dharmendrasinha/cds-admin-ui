@@ -54,7 +54,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['edit/', element.id]"><fa-icon icon="edit" class="pr-2 text-primary" size="lg"></fa-icon></a>
+                        <a (click)="editPurpoeType(element)"><fa-icon icon="edit" class="pr-2 text-primary" size="lg"></fa-icon></a>
                         <a><fa-icon icon="times" size="lg" class="text-danger"></fa-icon></a>
                     </td>
                 </ng-container>

@@ -25,21 +25,19 @@
             <div class="row">
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Toatl Asset" formControlName="totalAsset" />
+                        <input matInput placeholder="Toatl Asset" formControlName="toatlAsset" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
-                    <label>CMP Flag </label>
-                    <mat-radio-group aria-label="Select an option" formControlName="cmpFlag">
-                        <mat-radio-button color="primary" class="mr-3" value="Yes">Yes</mat-radio-button>
-                        <mat-radio-button color="primary" value="No">No</mat-radio-button>
-                    </mat-radio-group>
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="CMP Flag" formControlName="cmpFlag" />
+                    </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="example-full-width">
-                        <input matInput [matDatepicker]="pickerUpdateDate" placeholder="Update Date" formControlName="updateDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerUpdateDate></mat-datepicker>
+                        <input matInput [matDatepicker]="updateDate" placeholder="Update Date" formControlName="updateDate">
+                        <mat-datepicker-toggle matSuffix [for]="updateDate"></mat-datepicker-toggle>
+                        <mat-datepicker #updateDate></mat-datepicker>
                     </mat-form-field>
                 </div>
             </div>

@@ -20,6 +20,7 @@ import { EditcustomerComponent } from './editcustomer.component';
 
 import { customerfinancialRoute } from './customerfinancial.route';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule
   ],
   declarations: [CustomerfinancialComponent, AddcustomerComponent, EditcustomerComponent],
   exports: [MatPaginatorModule, MatTableModule]
