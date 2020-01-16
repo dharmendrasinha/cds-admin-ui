@@ -3,23 +3,23 @@
         <h3 class="main-heading">Advance - Purpose Type - Edit</h3>
     </div>
 </div>
-<form >
+<form [formGroup]="editForm">
     <div class="row">
         <div class="col-sm-3">
             <mat-form-field class="w-100">
-                <input matInput placeholder="Purpose Type Code" />
+                <input matInput placeholder="Purpose Type Code" formControlName="purposeTypeCode" />
             </mat-form-field>
         </div>
         <div class="col-sm-3">
             <mat-form-field class="w-100">
-                <input matInput placeholder="Purpose Type Description" />
+                <input matInput placeholder="Purpose Type Description" formControlName="purposeTypeDescription" />
             </mat-form-field>
         </div>
     </div>
 </form>
 <div class="row my-4">
     <div class="col-sm-12">
-        <button mat-raised-button color="primary" class="mr-2">UPDATE</button>
+        <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()">UPDATE</button>
         <button mat-button class="text-primary" routerLink="../../">CANCEL</button>
     </div>
 </div>

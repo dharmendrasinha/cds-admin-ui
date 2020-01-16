@@ -1,24 +1,15 @@
 <div class="row">
     <div class="col-sm-12">
-        <h3 class="main-heading">Customer Financial - Add New Customer</h3>
+        <h3 class="main-heading">Customer Financial - Edit Customer</h3>
     </div>
 </div>
-<form [formGroup]="addForm">
+<form [formGroup]="editFormCustomer">
     <div class="my-4">
         <div class="row">
             <div class="col-sm-4">
-                <mat-form-field class="example-full-width">
-                    <input type="text" formControlName="customerNumber" placeholder="From Customer" aria-label="Number" matInput [matAutocomplete]="autofromCustomer">
-                    <mat-autocomplete #autofromCustomer="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                            {{option}}
-                        </mat-option>
-                    </mat-autocomplete>
+                <mat-form-field class="w-100">
+                    <input matInput placeholder="Customer Number" formControlName="customerNumber" />
                 </mat-form-field>
-            </div>
-            <div class="col-sm-8">
-                <button mat-raised-button color="primary" class="mr-2">VIEW FINANCIAL RECORD</button>
-                <button mat-button class="text-primary" (click)="resetCustomer()">CLEAR</button>
             </div>
         </div>
         <div class="py-2">
@@ -37,9 +28,9 @@
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="example-full-width">
-                        <input matInput [matDatepicker]="pickerUpdateDate" placeholder="Update Date" formControlName="updateDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerUpdateDate></mat-datepicker>
+                        <input matInput [matDatepicker]="updateDate" placeholder="Update Date" formControlName="updateDate">
+                        <mat-datepicker-toggle matSuffix [for]="updateDate"></mat-datepicker-toggle>
+                        <mat-datepicker #updateDate></mat-datepicker>
                     </mat-form-field>
                 </div>
             </div>
@@ -110,7 +101,7 @@
         <div class="row my-4">
             <div class="col-sm-12">
                 <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()">ADD NEW CUSTOMER</button>
-                <button mat-button class="text-primary" (click)="resetValue()">CLEAR</button>
+                <button mat-button class="text-primary" routerLink="../">CLEAR</button>
             </div>
         </div>
 

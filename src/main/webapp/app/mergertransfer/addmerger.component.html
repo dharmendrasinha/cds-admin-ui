@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="mb-3">
+            <h3 class="main-heading">Merger/Transfer - Add a Merger</h3>
+        </div>
+    </div>
+</div>
+<form [formGroup]="editForm">
+    <div class="py-3 px-2">
+    <div class="row">
+        <div class="col-sm-12">
+        <mat-radio-group aria-label="Select an option" formControlName="instrumentType">
+            <mat-radio-button color="primary" class="mr-3" value="advance">Advance</mat-radio-button>
+            <mat-radio-button color="primary" value="term">Term</mat-radio-button>
+        </mat-radio-group>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <mat-form-field class="example-full-width">
+                <input type="text" formControlName="fromCustomer" placeholder="From Customer" aria-label="Number" matInput [matAutocomplete]="autofromCustomer">
+                <mat-autocomplete #autofromCustomer="matAutocomplete">
+                    <mat-option *ngFor="let option of fromCustomerOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field class="example-full-width">
+                <input type="text" placeholder="To Customer" formControlName="toCustomer" aria-label="Number" matInput [matAutocomplete]="autotoCustomer">
+                <mat-autocomplete #autotoCustomer="matAutocomplete">
+                    <mat-option *ngFor="let option of toCustomerOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="picker" placeholder="Effective date" formControlName="effectiveDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="mt-3 mb-2">
+        <div class="row">
+            <div class="col-sm-3">
+                <mat-checkbox color="primary" formControlName="allNotesFromCustomers">All Notes - From customers</mat-checkbox>
+            </div>
+            <div class="col-sm-3">
+                <mat-checkbox color="primary" formControlName="allNotesToCustomers">All Notes - From customers</mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="customer-list-bdr">
+                <div class="customer-list">
+                    <mat-selection-list #fromCustomerNotes formControlName="notesFromCustomers">
+                        <mat-list-option value="{{fromNote}}" color="primary" *ngFor="let fromNote of fromCustomerNotesList">
+                            {{fromNote}}
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="customer-list-bdr">
+                <div class="customer-list">
+                    <mat-selection-list #toCustomerNotes formControlName="notesToCustomers">
+                        <mat-list-option value="{{toNote}}" color="primary" *ngFor="let toNote of toCustomerNotesList">
+                            {{toNote}}
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()">MERGE</button>
+                <button mat-button class="text-primary">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

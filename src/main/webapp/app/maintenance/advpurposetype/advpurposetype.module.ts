@@ -39,6 +39,7 @@ import { DeleteadvpurposetypedialogComponent } from './deleteadvpurposetypedialo
   ],
   declarations: [AdvpurposetypeComponent, AddnewComponent, EditComponent, DeleteadvpurposetypedialogComponent],
   exports: [MatPaginatorModule, MatTableModule],
-  entryComponents: [DeleteadvpurposetypedialogComponent]
+  entryComponents: [DeleteadvpurposetypedialogComponent],
+  providers: []
 })
 export class AdvpurposetypeModule {}

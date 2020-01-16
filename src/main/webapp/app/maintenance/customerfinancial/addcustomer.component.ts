@@ -1,31 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-addcustomer',
   templateUrl: './addcustomer.component.html'
 })
 export class AddcustomerComponent implements OnInit {
-  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  addForm: FormGroup;
+  options: string[] = ['5 Abacus Federal Services  Bank', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.createForm();
+    this.filteredOptions = this.addForm.controls['customerNumber'].valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
   }
 
+  createForm() {
+    this.addForm = this.fb.group({
+      customerNumber: [null],
+      totalAsset: [null],
+      cmpFlag: ['Yes'],
+      updateDate: [null],
+      mtg14FamilyAmt: [null],
+      totalRFHA: [null],
+      mvaPercentage: [null],
+      capitalCompliantLevel: [null],
+      watchStatus: [null],
+      creditScore: [null],
+      watchStatusEffectiveDate: [null],
+      totalEligibileCollateralAmount: [null],
+      securityEligibileCollateralAmount: [null]
+    });
+  }
+
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value !== null ? value.toLowerCase() : '';
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  resetValue() {}
+  resetValue() {
+    this.addForm.reset();
+    this.addForm.patchValue({
+      cmpFlag: 'Yes'
+    });
+  }
+
+  resetCustomer() {
+    this.addForm.patchValue({
+      customerNumber: ''
+    });
+  }
+
+  submitForm() {
+    const postObj = this.addForm.getRawValue();
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(postObj));
+  }
 }

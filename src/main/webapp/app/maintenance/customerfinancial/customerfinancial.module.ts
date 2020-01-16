@@ -10,9 +10,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { CustomerfinancialComponent } from './customerfinancial.component';
 import { AddcustomerComponent } from './addcustomer.component';
+import { EditcustomerComponent } from './editcustomer.component';
 
 import { customerfinancialRoute } from './customerfinancial.route';
 import { MatInputModule } from '@angular/material/input';
@@ -30,9 +34,12 @@ import { MatInputModule } from '@angular/material/input';
     MatMenuModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
-  declarations: [CustomerfinancialComponent, AddcustomerComponent],
+  declarations: [CustomerfinancialComponent, AddcustomerComponent, EditcustomerComponent],
   exports: [MatPaginatorModule, MatTableModule]
 })
 export class CustomerfinancialModule {}

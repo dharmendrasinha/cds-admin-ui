@@ -268,5 +268,12 @@ body {
     .bg-white {
       background-color: #ffffff;
     }
+    .customer-list {
+      max-height: 210px;
+      overflow: auto;
+    }
+    .customer-list-bdr {
+      border: 1px solid grey;
+    }
   }
 }

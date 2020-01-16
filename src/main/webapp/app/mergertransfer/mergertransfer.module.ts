@@ -14,9 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
 
 import { mergeTransferRoute } from './mergertransfer.route';
 import { MergertransferComponent } from './mergertransfer.component';
+import { AddmergerComponent } from './addmerger.component';
 
 @NgModule({
   imports: [
@@ -34,9 +39,14 @@ import { MergertransferComponent } from './mergertransfer.component';
     MatInputModule,
     MatIconModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatListModule
   ],
-  declarations: [MergertransferComponent],
-  exports: [MatPaginatorModule, MatTableModule]
+  declarations: [MergertransferComponent, AddmergerComponent],
+  exports: [MatPaginatorModule, MatTableModule],
+  providers: [MatNativeDateModule]
 })
 export class MergeTransferRouteModule {}
