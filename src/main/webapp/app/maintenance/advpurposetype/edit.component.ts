@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AdvpurposetypeService } from './advpurposetype.service';
 import { BUSINESS_SERVICE_URL } from 'app/app.constants';
@@ -32,8 +32,8 @@ export class EditComponent implements OnInit {
   creatForm() {
     this.editForm = this.fb.group({
       id: [this.id],
-      purposeTypeCode: [null],
-      purposeTypeDescription: [null]
+      purposeTypeCode: [null, [Validators.required]],
+      purposeTypeDescription: [null, [Validators.required]]
     });
   }
 
@@ -65,4 +65,10 @@ export class EditComponent implements OnInit {
       }
     );
   }
+
+  public errorHandling = (control: string, error: string) => {
+    if (this.editForm.controls[control].touched) {
+      return this.editForm.controls[control].hasError(error);
+    }
+  };
 }

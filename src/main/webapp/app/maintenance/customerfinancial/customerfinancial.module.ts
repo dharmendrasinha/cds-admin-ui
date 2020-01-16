@@ -21,6 +21,8 @@ import { EditcustomerComponent } from './editcustomer.component';
 import { customerfinancialRoute } from './customerfinancial.route';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeletecustomerdialogComponent } from 'app/maintenance/customerfinancial/deletecustomerdialog.component';
 
 @NgModule({
   imports: [
@@ -39,9 +41,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
-  declarations: [CustomerfinancialComponent, AddcustomerComponent, EditcustomerComponent],
-  exports: [MatPaginatorModule, MatTableModule]
+  declarations: [CustomerfinancialComponent, AddcustomerComponent, EditcustomerComponent, DeletecustomerdialogComponent],
+  exports: [MatPaginatorModule, MatTableModule],
+  entryComponents: [DeletecustomerdialogComponent]
 })
 export class CustomerfinancialModule {}

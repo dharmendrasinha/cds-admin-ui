@@ -52,9 +52,6 @@ export class AddcustomerComponent implements OnInit {
 
   resetValue() {
     this.addForm.reset();
-    this.addForm.patchValue({
-      cmpFlag: 'Yes'
-    });
   }
 
   resetCustomer() {
@@ -80,8 +77,11 @@ export class AddcustomerComponent implements OnInit {
         console.log(error);
       }
     );
-
-    // eslint-disable-next-line no-console
-    console.log(JSON.stringify(postObj));
   }
+
+  public errorHandling = (control: string, error: string) => {
+    if (this.addForm.controls[control].touched) {
+      return this.addForm.controls[control].hasError(error);
+    }
+  };
 }

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
-  templateUrl: './deleteadvpurposetypedialog.component.html'
+  templateUrl: './deletecustomerdialog.component.html'
 })
-export class DeleteadvpurposetypedialogComponent {
-  constructor(public dialog: MatDialogRef<DeleteadvpurposetypedialogComponent>) {}
+export class DeletecustomerdialogComponent {
+  constructor(public dialog: MatDialogRef<DeletecustomerdialogComponent>) {}
 
   closeDialog() {
     this.dialog.close({ event: 'Cancel' });

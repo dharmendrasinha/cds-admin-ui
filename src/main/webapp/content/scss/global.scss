@@ -275,5 +275,8 @@ body {
     .customer-list-bdr {
       border: 1px solid grey;
     }
+    .ng-invalid:not(form) {
+      border-left-width: 0 !important;
+    }
   }
 }
