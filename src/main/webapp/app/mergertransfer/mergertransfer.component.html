@@ -5,12 +5,25 @@
         </div>
     </div>
 </div>
-<div class="row">
+<form [formGroup]="searchForm">
+    <div class="row">
     <div class="col-sm-12">
         <div class="py-3 px-2 bg-white">
             <mat-tab-group animationDuration="0ms">
-                <mat-tab label="Mergers">
-                    <div>
+                <mat-tab label="Merger">
+                    <div class="pt-3">
+                        <div class="float-left">
+                            <div style="width: 400px">
+                            <mat-form-field class="example-full-width">
+                                <input type="text" placeholder="Customer" formControlName="mergerCustomer" matInput [matAutocomplete]="mergerCustomer">
+                                <mat-autocomplete #mergerCustomer="matAutocomplete" (optionSelected)='getMergers($event.option.id)'>
+                                    <mat-option *ngFor="let option of mergerFilteredOptions | async" [value]="option.customerName" [id]="option.id">
+                                        {{option.customerName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            </div>
+                        </div>
                         <div class="float-right">
                             <button mat-raised-button color="primary" routerLink="./addmerger">ADD A MERGER</button>
                         </div>
@@ -19,7 +32,7 @@
                     <div class="p-2 d-none">
                         <fa-icon [icon]="['far', 'check-circle']" size="lg" class="text-success"></fa-icon> <span>The selected from customer <b>from</b> notes are successfully merged with to customer <b>to</b>.</span>
                     </div>
-                    <div class="pt-3">
+                    <div class="pt-2">
                         <table mat-table matTableExporter [dataSource]="mergerDataSource" matSort #sort1="matSort" class="mat-elevation-z8" #exporter="matTableExporter">
                             <ng-container matColumnDef="mergerId">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none"> mergerId </th>
@@ -75,17 +88,29 @@
                         <mat-paginator #matPaginator1 [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
                     </div>
                 </mat-tab>
-                <mat-tab label="Transfers">
-                    <div>
+                <mat-tab label="Transfer">
+                    <div class="pt-3">
+                        <div class="float-left">
+                            <div style="width: 400px">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" placeholder="Customer" formControlName="transferCustomer" matInput [matAutocomplete]="transferCustomer">
+                                    <mat-autocomplete #transferCustomer="matAutocomplete" (optionSelected)='getTransfers($event.option.id)'>
+                                        <mat-option *ngFor="let option of transferFilteredOptions | async" [value]="option.customerName" [id]="option.id">
+                                            {{option.customerName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
                         <div class="float-right">
-                            <button mat-raised-button color="primary" routerLink="./addtransfer">ADD A TRANSFER</button>
+                            <button mat-raised-button color="primary" routerLink="./addtransfer" disabled="disabled">ADD A TRANSFER</button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="p-2 d-none">
                         <fa-icon [icon]="['far', 'check-circle']" size="lg" class="text-success"></fa-icon> <span>The selected from customer <b>from</b> notes are successfully merged with to customer <b>to</b>.</span>
                     </div>
-                    <div class="pt-3">
+                    <div class="pt-2">
                         <table mat-table matTableExporter [dataSource]="transferDataSource" matSort #sort2="matSort" class="mat-elevation-z8" #exporter="matTableExporter">
                             <ng-container matColumnDef="transferId">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none"> transferId </th>
@@ -146,3 +171,4 @@
         </div>
     </div>
 </div>
+</form>

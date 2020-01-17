@@ -8,6 +8,9 @@ import { UndotransferdialogComponent } from './undotransferdialog.component';
 import { HttpClient } from '@angular/common/http';
 import { BUSINESS_SERVICE_URL } from 'app/app.constants';
 import { MergertransferService } from './mergertransfer.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-mergertransfer',
@@ -44,16 +47,63 @@ export class MergertransferComponent implements OnInit {
   @ViewChild('matPaginator2', { static: true }) paginator2: MatPaginator;
   undoTransferDialogRef: MatDialogRef<UndotransferdialogComponent>;
   undoMergerDialogRef: MatDialogRef<UndomergerdialogComponent>;
+  mergerCustomerId: Number;
+  transferCustomerId: Number;
+  mergerOptions: any[];
+  mergerFilteredOptions: Observable<any[]>;
+  transferOptions: any[];
+  transferFilteredOptions: Observable<any[]>;
 
-  constructor(private dialog: MatDialog, private httpClient: HttpClient, private mergertransferService: MergertransferService) {}
+  searchForm: FormGroup;
+
+  constructor(
+    private dialog: MatDialog,
+    private httpClient: HttpClient,
+    private mergertransferService: MergertransferService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
-    this.loadMergerGrid();
-    this.loadTransferGrid();
+    this.createForm();
+    // this.loadMergerGrid();
+    // this.loadTransferGrid();
+
+    this.mergertransferService.getAllCustomers().subscribe((res: any) => {
+      this.mergerOptions = res;
+      this.mergerFilteredOptions = this.searchForm.controls['mergerCustomer'].valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterMerger(value))
+      );
+
+      this.transferOptions = res;
+      this.transferFilteredOptions = this.searchForm.controls['transferCustomer'].valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterMerger(value))
+      );
+    });
   }
 
-  loadMergerGrid() {
-    this.mergertransferService.getMergers().subscribe((res: any) => {
+  createForm() {
+    this.searchForm = this.fb.group({
+      mergerCustomer: [''],
+      transferCustomer: ['']
+    });
+  }
+
+  private _filterMerger(value: any): any[] {
+    const filterValue = value.toLowerCase();
+    return this.mergerOptions.filter(option => option.customerName.toLowerCase().includes(filterValue));
+  }
+
+  private _filterTransfer(value: any): any[] {
+    const filterValue = value.toLowerCase();
+    return this.mergerOptions.filter(option => option.customerName.toLowerCase().includes(filterValue));
+  }
+
+  getMergers(value) {
+    this.mergerCustomerId = value;
+
+    this.mergertransferService.getMergers(this.mergerCustomerId).subscribe((res: any) => {
       this.mergerDataSource = new MatTableDataSource(res);
       this.mergerDataSource.paginator = this.paginator1;
       this.mergerDataSource.sort = this.sort1;
@@ -64,8 +114,10 @@ export class MergertransferComponent implements OnInit {
     // this.dataSource.sort = this.sort1;
   }
 
-  loadTransferGrid() {
-    this.mergertransferService.getTransfers().subscribe((res: any) => {
+  getTransfers(value) {
+    this.transferCustomerId = value;
+
+    this.mergertransferService.getTransfers(this.transferCustomerId).subscribe((res: any) => {
       this.transferDataSource = new MatTableDataSource(res);
       this.transferDataSource.paginator = this.paginator2;
       this.transferDataSource.sort = this.sort2;
@@ -89,12 +141,12 @@ export class MergertransferComponent implements OnInit {
     const url = BUSINESS_SERVICE_URL + '/merger/undoMerger';
     this.httpClient.post(url, postObj).subscribe(
       data => {
-        this.loadMergerGrid();
+        // this.loadMergerGrid();
         // eslint-disable-next-line no-console
         console.log(data);
       },
       error => {
-        this.loadMergerGrid();
+        // this.loadMergerGrid();
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -118,12 +170,12 @@ export class MergertransferComponent implements OnInit {
     const url = BUSINESS_SERVICE_URL + '/transfer/undoTransfer';
     this.httpClient.post(url, postObj).subscribe(
       data => {
-        this.loadTransferGrid();
+        // this.loadTransferGrid();
         // eslint-disable-next-line no-console
         console.log(data);
       },
       error => {
-        this.loadTransferGrid();
+        // this.loadTransferGrid();
         // eslint-disable-next-line no-console
         console.log(error);
       }
