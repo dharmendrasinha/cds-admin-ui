@@ -2,27 +2,131 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-
-const ELEMENT_DATA: any[] = [
-  { industry: '', noteNumber: '', instrumentType: '', effectiveDate: '', fromCustomer: '', toCustomer: '' },
-  { industry: '', noteNumber: '', instrumentType: '', effectiveDate: '', fromCustomer: '', toCustomer: '' }
-];
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { UndomergerdialogComponent } from './undomergerdialog.component';
+import { UndotransferdialogComponent } from './undotransferdialog.component';
+import { HttpClient } from '@angular/common/http';
+import { BUSINESS_SERVICE_URL } from 'app/app.constants';
+import { MergertransferService } from './mergertransfer.service';
 
 @Component({
   selector: 'jhi-mergertransfer',
   templateUrl: './mergertransfer.component.html'
 })
 export class MergertransferComponent implements OnInit {
-  displayedColumns: string[] = ['industry', 'noteNumber', 'instrumentType', 'effectiveDate', 'fromCustomer', 'toCustomer', 'action'];
-  dataSource: any;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  displayedColumnsMergers: string[] = [
+    'mergerId',
+    'noteId',
+    'industry',
+    'noteNo',
+    'instrumentType',
+    'effectiveDate',
+    'customerFrom',
+    'customerTo',
+    'action'
+  ];
+  displayedColumnsTransfers: string[] = [
+    'transferId',
+    'noteId',
+    'industry',
+    'noteNo',
+    'instrumentType',
+    'effectiveDate',
+    'customerFrom',
+    'customerTo',
+    'action'
+  ];
+  transferDataSource: any;
+  mergerDataSource: any;
+  @ViewChild('sort1', { static: true }) sort1: MatSort;
+  @ViewChild('sort2', { static: true }) sort2: MatSort;
+  @ViewChild('matPaginator1', { static: true }) paginator1: MatPaginator;
+  @ViewChild('matPaginator2', { static: true }) paginator2: MatPaginator;
+  undoTransferDialogRef: MatDialogRef<UndotransferdialogComponent>;
+  undoMergerDialogRef: MatDialogRef<UndomergerdialogComponent>;
 
-  constructor() {}
+  constructor(private dialog: MatDialog, private httpClient: HttpClient, private mergertransferService: MergertransferService) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.loadMergerGrid();
+    this.loadTransferGrid();
+  }
+
+  loadMergerGrid() {
+    this.mergertransferService.getMergers().subscribe((res: any) => {
+      this.mergerDataSource = new MatTableDataSource(res);
+      this.mergerDataSource.paginator = this.paginator1;
+      this.mergerDataSource.sort = this.sort1;
+    });
+
+    // this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    // this.dataSource.paginator = this.paginator1;
+    // this.dataSource.sort = this.sort1;
+  }
+
+  loadTransferGrid() {
+    this.mergertransferService.getTransfers().subscribe((res: any) => {
+      this.transferDataSource = new MatTableDataSource(res);
+      this.transferDataSource.paginator = this.paginator2;
+      this.transferDataSource.sort = this.sort2;
+    });
+  }
+
+  openMergerDialog(rowObj: any) {
+    this.undoMergerDialogRef = this.dialog.open(UndomergerdialogComponent);
+
+    this.undoMergerDialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'Undo') {
+        this.undoMergerSubmit(rowObj);
+      }
+    });
+  }
+
+  undoMergerSubmit(rowObj: any) {
+    const postObj = {
+      mergerList: [{ noteId: rowObj.noteId, mergerId: rowObj.mergerId }]
+    };
+    const url = BUSINESS_SERVICE_URL + '/merger/undoMerger';
+    this.httpClient.post(url, postObj).subscribe(
+      data => {
+        this.loadMergerGrid();
+        // eslint-disable-next-line no-console
+        console.log(data);
+      },
+      error => {
+        this.loadMergerGrid();
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    );
+  }
+
+  openTransferDialog(rowObj: any) {
+    this.undoTransferDialogRef = this.dialog.open(UndotransferdialogComponent);
+
+    this.undoTransferDialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'Undo') {
+        this.undoTransferSubmit(rowObj);
+      }
+    });
+  }
+
+  undoTransferSubmit(rowObj: any) {
+    const postObj = {
+      transferList: [{ noteId: rowObj.noteId, transferId: rowObj.transferId }]
+    };
+    const url = BUSINESS_SERVICE_URL + '/transfer/undoTransfer';
+    this.httpClient.post(url, postObj).subscribe(
+      data => {
+        this.loadTransferGrid();
+        // eslint-disable-next-line no-console
+        console.log(data);
+      },
+      error => {
+        this.loadTransferGrid();
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    );
   }
 }

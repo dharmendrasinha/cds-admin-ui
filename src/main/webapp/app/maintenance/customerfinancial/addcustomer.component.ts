@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { BUSINESS_SERVICE_URL } from 'app/app.constants';
@@ -28,19 +28,19 @@ export class AddcustomerComponent implements OnInit {
 
   createForm() {
     this.addForm = this.fb.group({
-      customerNumber: [null],
-      toatlAsset: [null],
-      cmpFlag: [null],
-      updateDate: [null],
-      mtg14FamilyAmt: [null],
-      totalRFHA: [null],
-      mvaPercentage: [null],
-      capitalCompliantLevel: [null],
-      watchStatus: [null],
-      creditScore: [null],
-      watchStatusEffectiveDate: [null],
-      totalEligibileCollateralAmount: [null],
-      securityEligibileCollateralAmount: [null]
+      customerNumber: [null, [Validators.required]],
+      toatlAsset: [null, [Validators.required]],
+      cmpFlag: [null, [Validators.required]],
+      updateDate: [null, [Validators.required]],
+      mtg14FamilyAmt: [null, [Validators.required]],
+      totalRFHA: [null, [Validators.required]],
+      mvaPercentage: [null, [Validators.required]],
+      capitalCompliantLevel: [null, [Validators.required]],
+      watchStatus: [null, [Validators.required]],
+      creditScore: [null, [Validators.required]],
+      watchStatusEffectiveDate: [null, [Validators.required]],
+      totalEligibileCollateralAmount: [null, [Validators.required]],
+      securityEligibileCollateralAmount: [null, [Validators.required]]
     });
   }
 
@@ -55,9 +55,7 @@ export class AddcustomerComponent implements OnInit {
   }
 
   resetCustomer() {
-    this.addForm.patchValue({
-      customerNumber: ''
-    });
+    this.addForm.controls['customerNumber'].reset();
   }
 
   submitForm() {

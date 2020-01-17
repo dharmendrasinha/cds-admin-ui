@@ -12,6 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HomeundomergerdialogComponent } from './homeundomergerdialog.component';
+import { HomeundotransferdialogComponent } from './homeundotransferdialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -20,8 +24,19 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatSelectModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    MatButtonModule
   ],
-  declarations: [HomeComponent, HomenotificationsComponent, MergetransfersComponent, HomemaintenanceComponent, HomereportsComponent]
+  declarations: [
+    HomeComponent,
+    HomenotificationsComponent,
+    MergetransfersComponent,
+    HomemaintenanceComponent,
+    HomereportsComponent,
+    HomeundomergerdialogComponent,
+    HomeundotransferdialogComponent
+  ],
+  entryComponents: [HomeundomergerdialogComponent, HomeundotransferdialogComponent]
 })
 export class HomeModule {}

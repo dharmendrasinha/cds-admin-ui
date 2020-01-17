@@ -22,6 +22,9 @@ import { MatListModule } from '@angular/material/list';
 import { mergeTransferRoute } from './mergertransfer.route';
 import { MergertransferComponent } from './mergertransfer.component';
 import { AddmergerComponent } from './addmerger.component';
+import { AddtransferComponent } from './addtransfer.component';
+import { UndomergerdialogComponent } from './undomergerdialog.component';
+import { UndotransferdialogComponent } from './undotransferdialog.component';
 
 @NgModule({
   imports: [
@@ -45,8 +48,9 @@ import { AddmergerComponent } from './addmerger.component';
     MatNativeDateModule,
     MatListModule
   ],
-  declarations: [MergertransferComponent, AddmergerComponent],
+  declarations: [MergertransferComponent, AddmergerComponent, AddtransferComponent, UndomergerdialogComponent, UndotransferdialogComponent],
   exports: [MatPaginatorModule, MatTableModule],
-  providers: [MatNativeDateModule]
+  providers: [MatNativeDateModule],
+  entryComponents: [UndotransferdialogComponent, UndomergerdialogComponent]
 })
 export class MergeTransferRouteModule {}

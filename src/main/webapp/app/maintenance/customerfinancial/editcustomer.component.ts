@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BUSINESS_SERVICE_URL } from 'app/app.constants';
 import { HttpClient } from '@angular/common/http';
@@ -25,19 +25,19 @@ export class EditcustomerComponent implements OnInit {
   createForm() {
     this.editFormCustomer = this.fb.group({
       id: [null],
-      customerNumber: [null],
-      toatlAsset: [null],
-      cmpFlag: [null],
-      updateDate: [null],
-      mtg14FamilyAmt: [null],
-      totalRFHA: [null],
-      mvaPercentage: [null],
-      capitalCompliantLevel: [null],
-      watchStatus: [null],
-      creditScore: [null],
-      watchStatusEffectiveDate: [null],
-      totalEligibileCollateralAmount: [null],
-      securityEligibileCollateralAmount: [null]
+      customerNumber: [null, [Validators.required]],
+      toatlAsset: [null, [Validators.required]],
+      cmpFlag: [null, [Validators.required]],
+      updateDate: [null, [Validators.required]],
+      mtg14FamilyAmt: [null, [Validators.required]],
+      totalRFHA: [null, [Validators.required]],
+      mvaPercentage: [null, [Validators.required]],
+      capitalCompliantLevel: [null, [Validators.required]],
+      watchStatus: [null, [Validators.required]],
+      creditScore: [null, [Validators.required]],
+      watchStatusEffectiveDate: [null, [Validators.required]],
+      totalEligibileCollateralAmount: [null, [Validators.required]],
+      securityEligibileCollateralAmount: [null, [Validators.required]]
     });
   }
 
@@ -81,4 +81,10 @@ export class EditcustomerComponent implements OnInit {
       }
     );
   }
+
+  public errorHandling = (control: string, error: string) => {
+    if (this.editFormCustomer.controls[control].touched) {
+      return this.editFormCustomer.controls[control].hasError(error);
+    }
+  };
 }

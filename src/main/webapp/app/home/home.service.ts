@@ -5,7 +5,7 @@ import { BUSINESS_SERVICE_URL } from 'app/app.constants';
 @Injectable({
   providedIn: 'root'
 })
-export class MergertransferService {
+export class HomeService {
   constructor(private httpClient: HttpClient) {}
 
   getMergers() {

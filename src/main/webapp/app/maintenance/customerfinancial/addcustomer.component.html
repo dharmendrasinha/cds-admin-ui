@@ -8,7 +8,8 @@
         <div class="row">
             <div class="col-sm-4">
                 <mat-form-field class="example-full-width">
-                    <input type="text" formControlName="customerNumber" placeholder="From Customer" aria-label="Number" matInput [matAutocomplete]="autofromCustomer">
+                    <input type="text" formControlName="customerNumber" placeholder="From Customer" aria-label="Number" matInput [matAutocomplete]="autofromCustomer" />
+                    <mat-error *ngIf="errorHandling('customerNumber', 'required')">From Customer is required.</mat-error>
                     <mat-autocomplete #autofromCustomer="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             {{option}}
@@ -25,17 +26,20 @@
             <div class="row">
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Toatl Asset" formControlName="toatlAsset" />
+                        <input type="number" matInput placeholder="Total Asset" formControlName="toatlAsset" />
+                        <mat-error *ngIf="errorHandling('toatlAsset', 'required')">Total Asset is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
                         <input matInput placeholder="CMP Flag" formControlName="cmpFlag" />
+                        <mat-error *ngIf="errorHandling('cmpFlag', 'required')">CMP Flag is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="example-full-width">
                         <input matInput [matDatepicker]="updateDate" placeholder="Update Date" formControlName="updateDate">
+                        <mat-error *ngIf="errorHandling('updateDate', 'required')">Update Date is required.</mat-error>
                         <mat-datepicker-toggle matSuffix [for]="updateDate"></mat-datepicker-toggle>
                         <mat-datepicker #updateDate></mat-datepicker>
                     </mat-form-field>
@@ -47,17 +51,20 @@
             <div class="row">
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="MTG 14 Family Amount" formControlName="mtg14FamilyAmt" />
+                        <input matInput type="number" placeholder="MTG 14 Family Amount" formControlName="mtg14FamilyAmt" />
+                        <mat-error *ngIf="errorHandling('mtg14FamilyAmt', 'required')">MTG 14 Family Amount is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Total RFHA" formControlName="totalRFHA" />
+                        <input type="number" matInput placeholder="Total RFHA" formControlName="totalRFHA" />
+                        <mat-error *ngIf="errorHandling('totalRFHA', 'required')">Total RFHA is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="MVA%" formControlName="mvaPercentage" />
+                        <input type="number" matInput placeholder="MVA%" formControlName="mvaPercentage" />
+                        <mat-error *ngIf="errorHandling('mvaPercentage', 'required')">MVA% is required.</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -68,16 +75,19 @@
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
                         <input matInput placeholder="Capital Compliant Level" formControlName="capitalCompliantLevel" />
+                        <mat-error *ngIf="errorHandling('mvaPercentage', 'required')">Capital Compliant Level is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
                         <input matInput placeholder="Watch Status" formControlName="watchStatus" />
+                        <mat-error *ngIf="errorHandling('watchStatus', 'required')">Watch Status is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Credit Score" formControlName="creditScore" />
+                        <input matInput type="number" placeholder="Credit Score" formControlName="creditScore" />
+                        <mat-error *ngIf="errorHandling('creditScore', 'required')">Credit Score is required.</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -88,18 +98,21 @@
                 <div class="col-sm-3">
                     <mat-form-field class="example-full-width">
                         <input matInput [matDatepicker]="picker" placeholder="Watch Status Effective Date" formControlName="watchStatusEffectiveDate">
+                        <mat-error *ngIf="errorHandling('watchStatusEffectiveDate', 'required')">Watch Status Effective Date is required.</mat-error>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Total Eligibile Collateral Amount" formControlName="totalEligibileCollateralAmount" />
+                        <input matInput type="number" placeholder="Total Eligibile Collateral Amount" formControlName="totalEligibileCollateralAmount" />
+                        <mat-error *ngIf="errorHandling('totalEligibileCollateralAmount', 'required')">Total Eligibile Collateral Amount is required.</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Security Eligibile Collateral Amount" formControlName="securityEligibileCollateralAmount" />
+                        <input matInput type="number" placeholder="Security Eligibile Collateral Amount" formControlName="securityEligibileCollateralAmount" />
+                        <mat-error *ngIf="errorHandling('securityEligibileCollateralAmount', 'required')">Security Eligibile Collateral Amount is required.</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -107,8 +120,8 @@
 
         <div class="row my-4">
             <div class="col-sm-12">
-                <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()">ADD NEW CUSTOMER</button>
-                <button mat-button class="text-primary" (click)="resetValue()">CLEAR</button>
+                <button mat-raised-button color="primary" class="mr-2" (click)="submitForm()" [disabled]="!addForm.valid">ADD NEW CUSTOMER</button>
+                <button mat-button class="text-primary" routerLink="../">CANCEL</button>
             </div>
         </div>
 

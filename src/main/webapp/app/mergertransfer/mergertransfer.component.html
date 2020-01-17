@@ -12,23 +12,33 @@
                 <mat-tab label="Mergers">
                     <div>
                         <div class="float-right">
-                            <button mat-raised-button color="primary" routerLink="./add">ADD A MERGER</button>
+                            <button mat-raised-button color="primary" routerLink="./addmerger">ADD A MERGER</button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="p-2">
+                    <div class="p-2 d-none">
                         <fa-icon [icon]="['far', 'check-circle']" size="lg" class="text-success"></fa-icon> <span>The selected from customer <b>from</b> notes are successfully merged with to customer <b>to</b>.</span>
                     </div>
                     <div class="pt-3">
-                        <table mat-table matTableExporter [dataSource]="dataSource" matSort class="mat-elevation-z8" #exporter="matTableExporter">
+                        <table mat-table matTableExporter [dataSource]="mergerDataSource" matSort #sort1="matSort" class="mat-elevation-z8" #exporter="matTableExporter">
+                            <ng-container matColumnDef="mergerId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none"> mergerId </th>
+                                <td mat-cell *matCellDef="let element" class="d-none"> {{element.mergerId}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="noteId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none"> noteId </th>
+                                <td mat-cell *matCellDef="let element" class="d-none"> {{element.noteId}} </td>
+                            </ng-container>
+
                             <ng-container matColumnDef="industry">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Industry </th>
                                 <td mat-cell *matCellDef="let element"> {{element.industry}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="noteNumber">
+                            <ng-container matColumnDef="noteNo">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Note Number </th>
-                                <td mat-cell *matCellDef="let element"> {{element.noteNumber}} </td>
+                                <td mat-cell *matCellDef="let element"> {{element.noteNo}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="instrumentType">
@@ -41,38 +51,94 @@
                                 <td mat-cell *matCellDef="let element"> {{element.effectiveDate}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="fromCustomer">
+                            <ng-container matColumnDef="customerFrom">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> From Customer </th>
-                                <td mat-cell *matCellDef="let element"> {{element.fromCustomer}} </td>
+                                <td mat-cell *matCellDef="let element"> {{element.customerFrom.customerName}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="toCustomer">
+                            <ng-container matColumnDef="customerTo">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> To Customer </th>
-                                <td mat-cell *matCellDef="let element"> {{element.toCustomer}} </td>
+                                <td mat-cell *matCellDef="let element"> {{element.customerTo.customerName}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <a href="" class="text-primary"><fa-icon icon="undo" class="pr-2" size="lg"></fa-icon></a>
+                                    <a *ngIf="element.mergerId !== null || element.mergerId !== 'null'" (click)="openMergerDialog(element)" class="text-primary"><fa-icon icon="undo" class="pr-2" size="lg"></fa-icon></a>
+                                    <fa-icon *ngIf="element.mergerId === null || element.mergerId === 'null'" icon="undo" class="pr-2 text-secondary" size="lg"></fa-icon>
                                 </td>
                             </ng-container>
 
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns;" [ngClass]="{'gray': even}" class="cursor-pointer"></tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsMergers"></tr>
+                            <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumnsMergers;" [ngClass]="{'gray': even}" class="cursor-pointer"></tr>
                         </table>
-                        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+                        <mat-paginator #matPaginator1 [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
                     </div>
                 </mat-tab>
                 <mat-tab label="Transfers">
                     <div>
                         <div class="float-right">
-                            <button mat-raised-button color="primary" routerLink="./add">ADD A TRANSFER</button>
+                            <button mat-raised-button color="primary" routerLink="./addtransfer">ADD A TRANSFER</button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div>
+                    <div class="p-2 d-none">
+                        <fa-icon [icon]="['far', 'check-circle']" size="lg" class="text-success"></fa-icon> <span>The selected from customer <b>from</b> notes are successfully merged with to customer <b>to</b>.</span>
+                    </div>
+                    <div class="pt-3">
+                        <table mat-table matTableExporter [dataSource]="transferDataSource" matSort #sort2="matSort" class="mat-elevation-z8" #exporter="matTableExporter">
+                            <ng-container matColumnDef="transferId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none"> transferId </th>
+                                <td mat-cell *matCellDef="let element" class="d-none"> {{element.transferId}} </td>
+                            </ng-container>
 
+                            <ng-container matColumnDef="noteId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none"> noteId </th>
+                                <td mat-cell *matCellDef="let element" class="d-none"> {{element.noteId}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="industry">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Industry </th>
+                                <td mat-cell *matCellDef="let element"> {{element.industry}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="noteNo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Note Number </th>
+                                <td mat-cell *matCellDef="let element"> {{element.noteNo}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="instrumentType">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrument Type </th>
+                                <td mat-cell *matCellDef="let element"> {{element.instrumentType}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="effectiveDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Effective Date </th>
+                                <td mat-cell *matCellDef="let element"> {{element.effectiveDate}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="customerFrom">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> From Customer </th>
+                                <td mat-cell *matCellDef="let element"> {{element.customerFrom.customerName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="customerTo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> To Customer </th>
+                                <td mat-cell *matCellDef="let element"> {{element.customerTo.customerName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <a *ngIf="element.transferId !== null || element.transferId !== 'null'" (click)="openTransferDialog(element)" class="text-primary"><fa-icon icon="undo" class="pr-2" size="lg"></fa-icon></a>
+                                    <fa-icon *ngIf="element.transferId === null || element.transferId === 'null'" icon="undo" class="pr-2 text-secondary" size="lg"></fa-icon>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsTransfers"></tr>
+                            <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumnsTransfers;" [ngClass]="{'gray': even}" class="cursor-pointer"></tr>
+                        </table>
+                        <mat-paginator #matPaginator2 [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
                     </div>
 
                 </mat-tab>
