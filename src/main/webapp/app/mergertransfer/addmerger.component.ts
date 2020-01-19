@@ -38,15 +38,13 @@ export class AddmergerComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.mergertransferService.getAllCustomers().subscribe((res: any) => {
+    this.mergertransferService.getAllMergerCustomers().subscribe((res: any) => {
       this.fromOptions = res;
       this.fromFilteredOptions = this.addForm.controls['fromCustomer'].valueChanges.pipe(
         startWith(''),
         map(value => this._filterFrom(value))
       );
-    });
 
-    this.mergertransferService.getAllCustomers().subscribe((res: any) => {
       this.toOptions = res;
       this.toFilteredOptions = this.addForm.controls['toCustomer'].valueChanges.pipe(
         startWith(''),
@@ -70,7 +68,7 @@ export class AddmergerComponent implements OnInit {
       fromCustomer: [''],
       toCustomer: [''],
       effectiveDate: [null],
-      instrumentType: ['advance'],
+      instrumentType: [{ value: 'advance', disabled: true }],
       notesFromCustomers: new FormControl([])
     });
   }
@@ -117,14 +115,14 @@ export class AddmergerComponent implements OnInit {
 
   getFromCustomerId(value) {
     this.fromCustomerId = value;
-    this.mergertransferService.getNotesByCustomerFrom(this.fromCustomerId, 1).subscribe((res: any) => {
+    this.mergertransferService.getMergerNotesByCustomerFrom(this.fromCustomerId, 1).subscribe((res: any) => {
       this.fromCustomerNotesList = res;
     });
   }
 
   getToCustomerId(value) {
     this.toCustomerId = value;
-    this.mergertransferService.getNotesByCustomerTo(this.toCustomerId, 1).subscribe((res: any) => {
+    this.mergertransferService.getMergerNotesByCustomerTo(this.toCustomerId, 1).subscribe((res: any) => {
       this.toCustomerNotesList = res;
     });
   }

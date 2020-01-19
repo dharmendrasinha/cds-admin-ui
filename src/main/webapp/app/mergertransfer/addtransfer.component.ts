@@ -1,64 +1,129 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { BUSINESS_SERVICE_URL } from 'app/app.constants';
+import { Router } from '@angular/router';
+import { MergertransferService } from './mergertransfer.service';
+import { MatSelectionList } from '@angular/material/list';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'jhi-addmerger',
   templateUrl: './addtransfer.component.html'
 })
 export class AddtransferComponent implements OnInit {
-  editForm: FormGroup;
-  fromOptions: string[] = ['One', 'Two', 'Three'];
-  toOptions: string[] = ['Five', 'Two', 'Three'];
-  fromCustomerOptions: Observable<string[]>;
-  toCustomerOptions: Observable<string[]>;
-  fromCustomerNotesList: string[] = ['5 AFSB Note 1', '5 AFSB Note 2', '5 AFSB Note 3', '5 AFSB Note 4', '5 AFSB Note 5'];
-  toCustomerNotesList: string[] = ['31 BOC Note 1', '31 BOC Note 2', '31 BOC Note 3', '31 BOC Note 4', '31 BOC Note 5'];
+  addForm: FormGroup;
+  fromOptions: any[];
+  fromFilteredOptions: Observable<any[]>;
+  toOptions: any[];
+  toFilteredOptions: Observable<any[]>;
+  fromCustomerId: Number;
+  toCustomerId: Number;
 
-  constructor(private fb: FormBuilder) {}
+  fromCustomerNotesList: any[] = [];
+  toCustomerNotesList: any[] = [];
+  @ViewChild('fromCustomerNotesSelectList', { static: true }) fromCustomerNotesSelectList: MatSelectionList;
+
+  constructor(
+    private fb: FormBuilder,
+    private datePipe: DatePipe,
+    private httpClient: HttpClient,
+    private router: Router,
+    private mergertransferService: MergertransferService
+  ) {}
 
   ngOnInit() {
     this.createForm();
-    this.fromCustomerOptions = this.editForm.controls['fromCustomer'].valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterFrom(value))
-    );
+    this.mergertransferService.getAllTransferCustomers().subscribe((res: any) => {
+      this.fromOptions = res;
+      this.fromFilteredOptions = this.addForm.controls['fromCustomer'].valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterFrom(value))
+      );
 
-    this.toCustomerOptions = this.editForm.controls['toCustomer'].valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterTo(value))
-    );
-  }
-
-  createForm() {
-    this.editForm = this.fb.group({
-      fromCustomer: [''],
-      toCustomer: [''],
-      effectiveDate: [null],
-      allNotesFromCustomers: [false],
-      allNotesToCustomers: [false],
-      instrumentType: ['advance'],
-      notesFromCustomers: new FormControl([]),
-      notesToCustomers: new FormControl([])
+      this.toOptions = res;
+      this.toFilteredOptions = this.addForm.controls['toCustomer'].valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterTo(value))
+      );
     });
   }
 
-  private _filterFrom(value: string): string[] {
+  private _filterFrom(value: any): any[] {
     const filterValue = value.toLowerCase();
-    return this.fromOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return this.fromOptions.filter(option => option.customerName.toLowerCase().includes(filterValue));
   }
 
   private _filterTo(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.toOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return this.toOptions.filter(option => option.customerName.toLowerCase().includes(filterValue));
+  }
+
+  createForm() {
+    this.addForm = this.fb.group({
+      fromCustomer: [''],
+      toCustomer: [''],
+      effectiveDate: [null],
+      instrumentType: [{ value: 'term', disabled: true }],
+      notesFromCustomers: new FormControl([])
+    });
   }
 
   submitForm() {
-    const postObj = this.editForm.getRawValue();
+    const formObj = this.addForm.getRawValue();
+    const currentDate = new Date().toISOString();
+    const postObj = {
+      effectiveDate: this.datePipe.transform(formObj.effectiveDate, 'yyyy-MM-dd'),
+      customerFrom: this.fromCustomerId,
+      customerTo: this.toCustomerId,
+      action: 'Transfer',
+      mergingEntity: 'Transfer',
+      timeStamp: currentDate,
+      noteIds: formObj.notesFromCustomers,
+      systems: { id: 1, systemsEntity: 'Term' }
+    };
+
+    const url = BUSINESS_SERVICE_URL + '/transfer/addTransfer';
+    this.httpClient.post(url, postObj).subscribe(
+      data => {
+        this.router.navigate(['/mergertransfer']);
+        // eslint-disable-next-line no-console
+        console.log(data);
+      },
+      error => {
+        this.router.navigate(['/mergertransfer']);
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    );
 
     // eslint-disable-next-line no-console
-    console.log(JSON.stringify(postObj));
+    console.log(postObj);
+  }
+
+  selectDeselectAll(event: MatCheckboxChange) {
+    if (event.checked) {
+      this.fromCustomerNotesSelectList.selectAll();
+    } else {
+      this.fromCustomerNotesSelectList.deselectAll();
+    }
+  }
+
+  getFromCustomerId(value) {
+    this.fromCustomerId = value;
+    this.mergertransferService.getTransferNotesByCustomerFrom(this.fromCustomerId, 1).subscribe((res: any) => {
+      this.fromCustomerNotesList = res;
+    });
+  }
+
+  getToCustomerId(value) {
+    this.toCustomerId = value;
+    this.mergertransferService.getTransferNotesByCustomerTo(this.toCustomerId, 1).subscribe((res: any) => {
+      this.toCustomerNotesList = res;
+    });
   }
 }

@@ -68,13 +68,15 @@ export class MergertransferComponent implements OnInit {
     // this.loadMergerGrid();
     // this.loadTransferGrid();
 
-    this.mergertransferService.getAllCustomers().subscribe((res: any) => {
+    this.mergertransferService.getAllMergerCustomers().subscribe((res: any) => {
       this.mergerOptions = res;
       this.mergerFilteredOptions = this.searchForm.controls['mergerCustomer'].valueChanges.pipe(
         startWith(''),
         map(value => this._filterMerger(value))
       );
+    });
 
+    this.mergertransferService.getAllTransferCustomers().subscribe((res: any) => {
       this.transferOptions = res;
       this.transferFilteredOptions = this.searchForm.controls['transferCustomer'].valueChanges.pipe(
         startWith(''),
