@@ -19,6 +19,7 @@
             <div class="col-sm-3">
                 <mat-form-field class="example-full-width">
                     <input type="text" formControlName="fromCustomer" placeholder="From Customer" aria-label="Number" matInput [matAutocomplete]="autofromCustomer">
+                    <mat-error *ngIf="errorHandling('fromCustomer', 'required')">From Customer is required.</mat-error>
                     <mat-autocomplete #autofromCustomer="matAutocomplete" (optionSelected)='getFromCustomerId($event.option.id)'>
                         <mat-option *ngFor="let option of fromFilteredOptions | async" [value]="option.customerName" [id]="option.id">
                             {{option.customerName}}
@@ -29,6 +30,7 @@
             <div class="col-sm-3">
                 <mat-form-field class="example-full-width">
                     <input type="text" placeholder="To Customer" formControlName="toCustomer" aria-label="Number" matInput [matAutocomplete]="autotoCustomer">
+                    <mat-error *ngIf="errorHandling('toCustomer', 'required')">To Customer is required.</mat-error>
                     <mat-autocomplete #autotoCustomer="matAutocomplete" (optionSelected)='getToCustomerId($event.option.id)'>
                         <mat-option *ngFor="let option of toFilteredOptions | async" [value]="option.customerName" [id]="option.id">
                             {{option.customerName}}
@@ -39,6 +41,7 @@
             <div class="col-sm-3">
                 <mat-form-field class="example-full-width">
                     <input matInput [matDatepicker]="picker" placeholder="Effective date" formControlName="effectiveDate">
+                    <mat-error *ngIf="errorHandling('effectiveDate', 'required')">Effective Date is required.</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

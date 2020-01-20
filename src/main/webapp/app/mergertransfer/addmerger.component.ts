@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { BUSINESS_SERVICE_URL } from 'app/app.constants';
@@ -65,11 +65,11 @@ export class AddmergerComponent implements OnInit {
 
   createForm() {
     this.addForm = this.fb.group({
-      fromCustomer: [''],
-      toCustomer: [''],
-      effectiveDate: [null],
+      fromCustomer: [null, [Validators.required]],
+      toCustomer: [null, [Validators.required]],
+      effectiveDate: [null, [Validators.required]],
       instrumentType: [{ value: 'advance', disabled: true }],
-      notesFromCustomers: new FormControl([])
+      notesFromCustomers: new FormControl([], [Validators.required])
     });
   }
 
@@ -126,4 +126,10 @@ export class AddmergerComponent implements OnInit {
       this.toCustomerNotesList = res;
     });
   }
+
+  public errorHandling = (control: string, error: string) => {
+    if (this.addForm.controls[control].touched) {
+      return this.addForm.controls[control].hasError(error);
+    }
+  };
 }
