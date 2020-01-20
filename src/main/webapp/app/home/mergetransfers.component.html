@@ -1,8 +1,23 @@
 <div class="p-3">
     <div class="row">
         <div class="col-sm-12">
+            <form [formGroup]="searchForm">
             <mat-tab-group animationDuration="0ms">
                 <mat-tab label="Mergers">
+                    <div class="pt-3">
+                        <div class="float-left">
+                            <div style="width: 400px">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" placeholder="Customer" formControlName="mergerCustomer" matInput [matAutocomplete]="mergerCustomer">
+                                    <mat-autocomplete #mergerCustomer="matAutocomplete" (optionSelected)='getMergers($event.option.id)'>
+                                        <mat-option *ngFor="let option of mergerFilteredOptions | async" [value]="option.customerName" [id]="option.id">
+                                            {{option.customerName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
                     <div class="my-2 w-100">
                         <table mat-table [dataSource]="mergerDataSource" class="mat-elevation-z8">
                             <ng-container matColumnDef="mergerId">
@@ -58,11 +73,25 @@
                         </table>
                     </div>
                     <div class="mt-3">
-                        <div class="float-right"><a routerLink="">View All</a></div>
+                        <div class="float-right"><a routerLink="/mergertransfer">View All</a></div>
                         <div class="clearfix"></div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Transfers">
+                    <div class="pt-3">
+                        <div class="float-left">
+                            <div style="width: 400px">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" placeholder="Customer" formControlName="transferCustomer" matInput [matAutocomplete]="transferCustomer">
+                                    <mat-autocomplete #transferCustomer="matAutocomplete" (optionSelected)='getTransfers($event.option.id)'>
+                                        <mat-option *ngFor="let option of transferFilteredOptions | async" [value]="option.customerName" [id]="option.id">
+                                            {{option.customerName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
                     <div class="my-2">
                         <table mat-table [dataSource]="transferDataSource" class="mat-elevation-z8">
                             <ng-container matColumnDef="transferId">
@@ -118,11 +147,12 @@
                         </table>
                     </div>
                     <div class="mt-3">
-                        <div class="float-right"><a routerLink="">View All</a></div>
+                        <div class="float-right"><a routerLink="/mergertransfer">View All</a></div>
                         <div class="clearfix"></div>
                     </div>
                 </mat-tab>
             </mat-tab-group>
+            </form>
         </div>
     </div>
 </div>

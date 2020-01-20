@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HomeundomergerdialogComponent } from './homeundomergerdialog.component';
 import { HomeundotransferdialogComponent } from './homeundotransferdialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -26,7 +28,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatTabsModule,
     MatTableModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatInputModule
   ],
   declarations: [
     HomeComponent,

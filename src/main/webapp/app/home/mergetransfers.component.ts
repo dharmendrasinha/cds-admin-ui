@@ -6,6 +6,9 @@ import { HomeundomergerdialogComponent } from './homeundomergerdialog.component'
 import { BUSINESS_SERVICE_URL } from 'app/app.constants';
 import { MatTableDataSource } from '@angular/material/table';
 import { HomeService } from './home.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-mergetransfers',
@@ -38,23 +41,54 @@ export class MergetransfersComponent implements OnInit {
   mergerDataSource: any;
   undoTransferDialogRef: MatDialogRef<HomeundotransferdialogComponent>;
   undoMergerDialogRef: MatDialogRef<HomeundomergerdialogComponent>;
+  mergerCustomerId: Number;
+  transferCustomerId: Number;
+  mergerOptions: any[];
+  mergerFilteredOptions: Observable<any[]>;
+  transferOptions: any[];
+  transferFilteredOptions: Observable<any[]>;
+  searchForm: FormGroup;
 
-  constructor(private dialog: MatDialog, private httpClient: HttpClient, private homeService: HomeService) {}
+  constructor(private dialog: MatDialog, private httpClient: HttpClient, private homeService: HomeService, private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.loadMergerGrid();
-    this.loadTransferGrid();
-  }
+    this.createForm();
+    // this.loadMergerGrid();
+    // this.loadTransferGrid();
 
-  loadMergerGrid() {
-    this.homeService.getMergers().subscribe((res: any) => {
-      this.mergerDataSource = new MatTableDataSource(res.slice(0, 5));
+    this.homeService.getAllMergerCustomers().subscribe((res: any) => {
+      this.mergerOptions = res;
+      this.mergerFilteredOptions = this.searchForm.controls['mergerCustomer'].valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterMerger(value))
+      );
+    });
+
+    this.homeService.getAllTransferCustomers().subscribe((res: any) => {
+      this.transferOptions = res;
+      this.transferFilteredOptions = this.searchForm.controls['transferCustomer'].valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterMerger(value))
+      );
     });
   }
 
-  loadTransferGrid() {
-    this.homeService.getTransfers().subscribe((res: any) => {
-      this.transferDataSource = new MatTableDataSource(res.slice(0, 5));
+  // loadMergerGrid() {
+  //   this.homeService.getMergers().subscribe((res: any) => {
+  //     this.mergerDataSource = new MatTableDataSource(res.slice(0, 5));
+  //   });
+  // }
+
+  // loadTransferGrid() {
+  //   this.homeService.getTransfers().subscribe((res: any) => {
+  //     this.transferDataSource = new MatTableDataSource(res.slice(0, 5));
+  //   });
+  // }
+
+  createForm() {
+    this.searchForm = this.fb.group({
+      mergerCustomer: [''],
+      transferCustomer: ['']
     });
   }
 
@@ -75,12 +109,12 @@ export class MergetransfersComponent implements OnInit {
     const url = BUSINESS_SERVICE_URL + '/merger/undoMerger';
     this.httpClient.post(url, postObj).subscribe(
       data => {
-        this.loadMergerGrid();
+        // this.loadMergerGrid();
         // eslint-disable-next-line no-console
         console.log(data);
       },
       error => {
-        this.loadMergerGrid();
+        // this.loadMergerGrid();
         // eslint-disable-next-line no-console
         console.log(error);
       }
@@ -104,15 +138,44 @@ export class MergetransfersComponent implements OnInit {
     const url = BUSINESS_SERVICE_URL + '/transfer/undoTransfer';
     this.httpClient.post(url, postObj).subscribe(
       data => {
-        this.loadTransferGrid();
+        // this.loadTransferGrid();
         // eslint-disable-next-line no-console
         console.log(data);
       },
       error => {
-        this.loadTransferGrid();
+        // this.loadTransferGrid();
         // eslint-disable-next-line no-console
         console.log(error);
       }
     );
+  }
+
+  private _filterMerger(value: any): any[] {
+    const filterValue = value.toLowerCase();
+    return this.mergerOptions.filter(option => option.customerName.toLowerCase().includes(filterValue));
+  }
+
+  private _filterTransfer(value: any): any[] {
+    const filterValue = value.toLowerCase();
+    return this.mergerOptions.filter(option => option.customerName.toLowerCase().includes(filterValue));
+  }
+
+  getMergers(value) {
+    this.mergerCustomerId = value;
+    this.homeService.getMergers(this.mergerCustomerId).subscribe((res: any) => {
+      this.mergerDataSource = new MatTableDataSource(res.slice(0, 5));
+    });
+
+    // this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    // this.dataSource.paginator = this.paginator1;
+    // this.dataSource.sort = this.sort1;
+  }
+
+  getTransfers(value) {
+    this.transferCustomerId = value;
+
+    this.homeService.getTransfers(this.transferCustomerId).subscribe((res: any) => {
+      this.transferDataSource = new MatTableDataSource(res.slice(0, 5));
+    });
   }
 }
