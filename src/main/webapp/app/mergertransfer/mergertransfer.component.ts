@@ -140,19 +140,9 @@ export class MergertransferComponent implements OnInit {
     const postObj = {
       mergerList: [{ noteId: rowObj.noteId, mergerId: rowObj.mergerId }]
     };
+
     const url = BUSINESS_SERVICE_URL + '/merger/undoMerger';
-    this.httpClient.post(url, postObj).subscribe(
-      data => {
-        // this.loadMergerGrid();
-        // eslint-disable-next-line no-console
-        console.log(data);
-      },
-      error => {
-        // this.loadMergerGrid();
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    );
+    this.httpClient.request('delete', url, { body: postObj }).subscribe();
   }
 
   openTransferDialog(rowObj: any) {
@@ -170,17 +160,6 @@ export class MergertransferComponent implements OnInit {
       transferList: [{ noteId: rowObj.noteId, transferId: rowObj.transferId }]
     };
     const url = BUSINESS_SERVICE_URL + '/transfer/undoTransfer';
-    this.httpClient.post(url, postObj).subscribe(
-      data => {
-        // this.loadTransferGrid();
-        // eslint-disable-next-line no-console
-        console.log(data);
-      },
-      error => {
-        // this.loadTransferGrid();
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    );
+    this.httpClient.request('delete', url, { body: postObj }).subscribe();
   }
 }
