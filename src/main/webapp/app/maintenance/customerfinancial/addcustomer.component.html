@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-sm-4">
                 <mat-form-field class="example-full-width">
-                    <input type="text" formControlName="customerNumber" placeholder="From Customer" aria-label="Number" matInput [matAutocomplete]="autofromCustomer" />
-                    <mat-error *ngIf="errorHandling('customerNumber', 'required')">From Customer is required.</mat-error>
+                    <input type="text" formControlName="customerNumber" placeholder="Customer Number" matInput [matAutocomplete]="autofromCustomer" />
+                    <mat-error *ngIf="errorHandling('customerNumber', 'required')">Customer Number is required.</mat-error>
                     <mat-autocomplete #autofromCustomer="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             {{option}}

@@ -108,7 +108,9 @@ export class MergetransfersComponent implements OnInit {
     };
 
     const url = BUSINESS_SERVICE_URL + '/merger/undoMerger';
-    this.httpClient.request('delete', url, { body: postObj }).subscribe();
+    this.httpClient.request('delete', url, { body: postObj }).subscribe(() => {
+      this.getMergers(this.mergerCustomerId);
+    });
   }
 
   openTransferDialog(rowObj: any) {
@@ -126,7 +128,9 @@ export class MergetransfersComponent implements OnInit {
       transferList: [{ noteId: rowObj.noteId, transferId: rowObj.transferId }]
     };
     const url = BUSINESS_SERVICE_URL + '/transfer/undoTransfer';
-    this.httpClient.request('delete', url, { body: postObj }).subscribe();
+    this.httpClient.request('delete', url, { body: postObj }).subscribe(() => {
+      this.getTransfers(this.transferCustomerId);
+    });
   }
 
   private _filterMerger(value: any): any[] {

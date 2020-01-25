@@ -68,7 +68,8 @@ export class AddtransferComponent implements OnInit {
       fromCustomer: [null, [Validators.required]],
       toCustomer: [null, [Validators.required]],
       effectiveDate: [null, [Validators.required]],
-      instrumentType: [{ value: 'term', disabled: true }],
+      instrumentTypeAdvance: [{ value: false, disabled: true }],
+      instrumentTypeTerm: [{ value: true, disabled: true }],
       notesFromCustomers: new FormControl([], [Validators.required])
     });
   }

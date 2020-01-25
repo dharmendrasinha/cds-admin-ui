@@ -9,10 +9,13 @@
     <div class="py-3 px-2">
         <div class="row">
             <div class="col-sm-12">
-                <mat-radio-group aria-label="Select an option" formControlName="instrumentType">
-                    <mat-radio-button color="primary" class="mr-3" value="advance">Advance</mat-radio-button>
-                    <mat-radio-button color="primary" value="term">Term</mat-radio-button>
-                </mat-radio-group>
+                <div class="pb-2 pt-1">
+                    <label class="example-margin">Systems</label>
+                </div>
+                <div>
+                    <mat-checkbox color="primary" formControlName="instrumentTypeAdvance">Advance</mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="instrumentTypeTerm">Term</mat-checkbox>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -52,7 +55,7 @@
                 <div class="col-sm-3">
                     <mat-checkbox color="primary" (change)="selectDeselectAll($event)">All Notes - From customers</mat-checkbox>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 d-none">
                     All Notes - To customers
                 </div>
             </div>
@@ -70,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 d-none">
                 <div class="customer-list-bdr">
                     <div class="customer-list">
                         <mat-list #toCustomerNotes>

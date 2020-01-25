@@ -13,7 +13,18 @@ import { Router } from '@angular/router';
 })
 export class AddcustomerComponent implements OnInit {
   addForm: FormGroup;
-  options: string[] = ['5 Abacus Federal Services  Bank', 'Avon program', 'Unbranded'];
+  options: string[] = [
+    '5 Abacus Federal Services  Bank',
+    '7 Amboy Bank',
+    '9 Amalgamated Bank',
+    '11 American Communty Bank',
+    '65 BNB Bank',
+    '66 Blue Foundry Bank',
+    "117 Mariner's Bank",
+    '127 PCSB Bank',
+    '130 Emigrant Bank',
+    '171 Generations Bank'
+  ];
   filteredOptions: Observable<string[]>;
 
   constructor(private fb: FormBuilder, private datePipe: DatePipe, private httpClient: HttpClient, private router: Router) {}

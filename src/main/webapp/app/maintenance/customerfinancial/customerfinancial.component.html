@@ -48,7 +48,7 @@
 
             <ng-container matColumnDef="toatlAsset">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Asset </th>
-                <td mat-cell *matCellDef="let element"> {{element.toatlAsset}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.toatlAsset | number : '1.2-2'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="cmpFlag">
@@ -63,19 +63,19 @@
 
             <ng-container matColumnDef="mtg14FamilyAmt">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> MTG14 Family Amount </th>
-                <td mat-cell *matCellDef="let element"> {{element.mtg14FamilyAmt}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.mtg14FamilyAmt | number : '1.2-2'}} </td>
             </ng-container>
 
             <!-- Commitment Status Column -->
             <ng-container matColumnDef="totalRFHA">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Total RFHA </th>
-                <td mat-cell *matCellDef="let element"> {{element.totalRFHA}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.totalRFHA| number : '1.2-2'}} </td>
             </ng-container>
 
             <!-- Commitment Balance Column -->
             <ng-container matColumnDef="mvaPercentage">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> MVA% </th>
-                <td mat-cell *matCellDef="let element"> {{element.mvaPercentage}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.mvaPercentage| number : '1.2-2'}} </td>
             </ng-container>
 
             <!-- Commitment Expiration Column -->
@@ -93,7 +93,7 @@
             <!-- Commitment Expiration Column -->
             <ng-container matColumnDef="creditScore">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Credit Score </th>
-                <td mat-cell *matCellDef="let element"> {{element.creditScore}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.creditScore | number : '1.2-2'}} </td>
             </ng-container>
 
             <!-- Commitment Expiration Column -->
@@ -105,13 +105,13 @@
             <!-- Commitment Expiration Column -->
             <ng-container matColumnDef="totalEligibileCollateralAmount">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Eligible Collateral Amount </th>
-                <td mat-cell *matCellDef="let element"> {{element.totalEligibileCollateralAmount}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.totalEligibileCollateralAmount | number : '1.2-2'}} </td>
             </ng-container>
 
             <!-- Commitment Expiration Column -->
             <ng-container matColumnDef="securityEligibileCollateralAmount">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Security Eligible Collateral Amount </th>
-                <td mat-cell *matCellDef="let element"> {{element.securityEligibileCollateralAmount}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.securityEligibileCollateralAmount | number : '1.2-2'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="actions">

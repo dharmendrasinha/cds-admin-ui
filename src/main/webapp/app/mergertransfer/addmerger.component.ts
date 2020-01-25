@@ -68,7 +68,8 @@ export class AddmergerComponent implements OnInit {
       fromCustomer: [null, [Validators.required]],
       toCustomer: [null, [Validators.required]],
       effectiveDate: [null, [Validators.required]],
-      instrumentType: [{ value: 'advance', disabled: true }],
+      instrumentTypeAdvance: [{ value: false, disabled: true }],
+      instrumentTypeTerm: [{ value: true, disabled: true }],
       notesFromCustomers: new FormControl([], [Validators.required])
     });
   }
